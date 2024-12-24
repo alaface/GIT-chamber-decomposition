@@ -30,7 +30,7 @@ To use these functions, load them in your Magma session. Below is an example dem
 Consider the following grading matrix `Q` and an integer `I`:
 
 ```magma
-Q := Matrix(Rationals(), 2, 4, [1, 1, 0, 1, 0, 0, 1, 3]);
+Q := Matrix(Rationals(), 2, 4, [1, 1, 0, 3, 0, 0, 1, 1]);
 I := 4;
 ```
 
