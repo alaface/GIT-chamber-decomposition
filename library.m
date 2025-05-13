@@ -132,6 +132,7 @@ GitFan := function(orb)
 
     L := {la};
     F := {C : C in Facets(la) | SupportingHyperplane(la, C) notin SH};
+    if #F eq 0 then return L; end if;
 
     repeat
         ff := Random(F);
