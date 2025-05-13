@@ -8,20 +8,31 @@
 Ffaces := function(I)
     if Type(I) eq RngIntElt then
         return Subsets({1..I}) diff {{}};
-    end if;
 
-    B := Basis(I);
-    R := Parent(I.1);
-    n := Rank(R);
-    faces := {};
-
-    for S in Subsets({1..n}) diff {{}} do
-        BS := [Evaluate(g, [(i in S) select R.i else 0 : i in [1..n]]) : g in B];
-        if &*[R.i : i in S] notin Radical(Ideal(BS)) then
-            Include(~faces, S);
-        end if;
+    elif IsPrincipal(I) then
+	g := Basis(I)[1];
+	R := Parent(I.1);
+	n := Rank(R);
+	faces := {};
+	for S in Subsets({1..n}) diff {{}} do
+		gS := Evaluate(g, [(i in S) select R.i else 0 : i in [1..n]]);
+        	if #Monomials(gS) ne 1 then
+            		Include(~faces, S);
+        	end if;
     end for;
+    else
+	B := Basis(I);
+	R := Parent(I.1);
+	n := Rank(R);
+	faces := {};
 
+	for S in Subsets({1..n}) diff {{}} do
+        	BS := [Evaluate(g, [(i in S) select R.i else 0 : i in [1..n]]) : g in B];
+        	if &*[R.i : i in S] notin Radical(Ideal(BS)) then
+        	    Include(~faces, S);
+        	end if;
+    	end for;
+    end if;
     return faces;
 end function;
 
